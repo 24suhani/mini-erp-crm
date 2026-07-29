@@ -1,0 +1,103 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  SALES
+  WAREHOUSE
+  ACCOUNTS
+}
+
+enum CustomerType {
+  Retail
+  Wholesale
+  Distributor
+}
+
+enum CustomerStatus {
+  Lead
+  Active
+  Inactive
+}
+
+enum MovementType {
+  IN
+  OUT
+}
+
+enum ChallanStatus {
+  Draft
+  Confirmed
+  Cancelled
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  role          Role           @default(SALES)
+  createdAt     DateTime       @default(now())
+  StockMovement StockMovement[]
+  Challan       Challan[]
+}
+
+model Customer {
+  id           String         @id @default(uuid())
+  name         String
+  mobile       String
+  email        String
+  businessName String
+  gstNumber    String?
+  type         CustomerType   @default(Wholesale)
+  address      String?
+  status       CustomerStatus @default(Lead)
+  followUpDate DateTime?
+  notes        String?
+  createdAt    DateTime       @default(now())
+  Challan      Challan[]
+}
+
+model Product {
+  id             String         @id @default(uuid())
+  name           String
+  sku            String         @unique
+  category       String
+  unitPrice      Float
+  currentStock   Int
+  minStockAlert  Int            @default(5)
+  location       String
+  createdAt      DateTime       @default(now())
+  StockMovement  StockMovement[]
+}
+
+model StockMovement {
+  id        String       @id @default(uuid())
+  productId String
+  product   Product      @relation(fields: [productId], references: [id])
+  quantity  Int
+  type      MovementType
+  reason    String
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  createdAt DateTime     @default(now())
+}
+
+model Challan {
+  id            String        @id @default(uuid())
+  challanNumber String        @unique
+  customerId    String
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  products      Json          // Stores snapshot of products (name, sku, unitPrice, qty)
+  totalQuantity Int
+  status        ChallanStatus @default(Draft)
+  userId        String
+  user          User          @relation(fields: [userId], references: [id])
+  createdAt     DateTime      @default(now())
+}
