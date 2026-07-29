@@ -41,3 +41,18 @@ npm install
 npx prisma db push
 npx prisma generate
 node dist/index.js
+
+Backend runs on http://localhost:5000
+
+2. Frontend Setup
+cd frontend
+npm install
+npm run dev
+
+Frontend runs on http://localhost:5173
+
+🔑 Environment Variables
+Create a .env file inside the backend/ directory:
+DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database>"
+JWT_SECRET="supersecretkey"
+PORT=5000
