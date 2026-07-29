@@ -41,14 +41,11 @@ npm install
 npx prisma db push
 npx prisma generate
 node dist/index.js
-
 Backend runs on http://localhost:5000
-
 2. Frontend Setup
 cd frontend
 npm install
 npm run dev
-
 Frontend runs on http://localhost:5173
 
 🔑 Environment Variables
