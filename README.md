@@ -1,4 +1,3 @@
-Markdown
 # Mini ERP + CRM Operations Portal
 
 A full-stack Mini ERP/CRM system designed for wholesale and distribution operations, featuring authentication, role-based access, inventory management, customer tracking, sales challans with automatic stock reduction, and real-time stock movement logging.
@@ -42,29 +41,3 @@ npm install
 npx prisma db push
 npx prisma generate
 node dist/index.js
-Backend runs on http://localhost:5000
-
-2. Frontend Setup
-Bash
-cd frontend
-npm install
-npm run dev
-Frontend runs on http://localhost:5173
-
-🔑 Environment Variables
-Create a .env file inside the backend/ directory:
-
-Code snippet
-DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database>"
-JWT_SECRET="supersecretkey"
-PORT=5000
-
----
-
-### Step 3: Save and Commit
-
-1. Click the green **Commit changes...** button in the top right of the page.
-2. Click **Commit changes** again in the confirmation pop-up.
-
-You're done! Your repository is fully set up, documented, and ready to submit with this URL:  
-**`[https://github.com/24suhani/mini-erp-crm](https://github.com/24suhani/mini-erp-crm)`**
